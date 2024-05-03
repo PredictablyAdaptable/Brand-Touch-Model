@@ -15,18 +15,11 @@ library(semPLS)
 ##########################
 ### surveyCleaning_SEM ###
 ##########################
+## Authentication 
 user <- Sys.getenv('username')
-#raw <- read.spss(paste0("C:/Users/", user, "/OneWorkplace/Decisions Science - 3. Audience and Agility/Client Work/Barclays/Barclays BTM/2022/Q4 campaign/3. Raw data/survey/Final data/Barclays Q4 Final data SPSS.sav")) 
-#raw <- data.frame(raw)
+raw <- read.csv(')
 
-#raw <- read.csv(paste0("C:/Users/", user, "/OneWorkplace/Decisions Science - 3. Audience and Agility/Client Work/Barclays/Barclays BTM/2022/Q4 campaign/3. Raw data/survey/Final data/final_data.csv"))
-raw <- read.csv(paste0("C:/Users/", user, "/OneWorkplace/Decisions Science - Documents/3. Audience and Agility/Client Work/Barclays/Barclays BTM/2022/Q4 campaign/3. Raw data/survey/Final data/final_data.csv"))
-
-
-#setwd(paste0("C:/Users/", user, "/OneWorkplace/Decisions Science - 3. Audience and Agility/Client Work/Barclays/Barclays BTM/2022/Q4 campaign/5. Formatted data/"))
-setwd(paste0("C:/Users/", user, "/OneWorkplace/Decisions Science - Documents/3. Audience and Agility/Client Work/Barclays/Barclays BTM/2022/Q4 campaign/5. Formatted data/"))
-
-audiences <- c("comfortablyCommitted", "ActiveStrivers", "day2dayPlanners", "cherryPickers") # all adults and catalysts too?
+audiences <- c("comfortablyCommitted", "ActiveStrivers", "day2dayPlanners", "cherryPickers") # all adults and catalysts
 
 survey <- raw %>% 
   mutate_at(vars("Q6_5"),~zoo::na.fill(., 0)) %>% # convert NA's to 0 for selected columns
@@ -221,7 +214,7 @@ perceptionDF <- survey2[, c("id",
                             perceptions)]
 
 # Run checks - NA's
-nas <- sum(rowSums(is.na(survey2[perceptions])) == length(perceptions)) # should be 0
+nas <- sum(rowSums(is.na(survey2[perceptions])) == length(perceptions)) 
 survey2 <- survey2[rowSums(is.na(survey2[perceptions])) != length(perceptions),]
 if (nas > 0){
   print(paste0("There are ", nas, " NA's in the dataset. These have been removed //n"))
